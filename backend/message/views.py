@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from .serializers import MessageSerializer
 from django.contrib.auth import get_user_model
@@ -6,6 +6,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAdminUser
 from .models import Message
 from rest_framework import filters
+from ticket.models import Ticket
 # Create your views here.
 class MessageViewSet(ModelViewSet):
     """
@@ -22,11 +23,12 @@ class MessageViewSet(ModelViewSet):
         return qs
 
     def perform_create(self, serializer):
-        ticket = serializer.validated_data["ticket"]
+        ticket_id = self.request.data.get('ticket_id')
+        ticket = get_object_or_404(Ticket, id=ticket_id)
         if (
             not self.request.user.is_staff
             and ticket.owner != self.request.user
         ):
             from rest_framework.exceptions import PermissionDenied
             raise PermissionDenied("You are not allowed to post on this ticket.")
-        serializer.save(owner=self.request.user)
+        serializer.save(owner=self.request.user, ticket=ticket)

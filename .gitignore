@@ -31,7 +31,8 @@ MANIFEST
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
 *.manifest
 *.spec
-
+pip
+pip3
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
@@ -229,7 +230,7 @@ jspm_packages/
 
 # Typescript v1 declaration files
 typings/
-
+bin/
 #WebStorm
 .idea/
 
@@ -262,3 +263,5 @@ deployment_keys.tar
 
 .github/.release
 release-artifacts-*
+lib64
+pyvenv.cfg
