@@ -66,7 +66,7 @@ const TicketMessages = memo(({ messages }) => (
       <Card key={message.id} sx={{ 
         mb: 2, 
         p: 2,
-        width: '100%',
+        width: '96%',
         height: 'auto',
         display: 'flex',
         flexDirection: 'column'
