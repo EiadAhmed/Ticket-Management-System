@@ -11,6 +11,10 @@ import {
 import Cookies from "universal-cookie";
 import { AuthenticationContext } from "../AuthenticationContext";
 import Loader from "./LoadingSpinner";
+import Logout from './logout';
+
+// Then in your component:
+
 
 // Helper function to get second word
 const getOwner = (str) => {
@@ -177,7 +181,10 @@ function Ticket() {
   if (!ticket) return null;
 
   return (
-    <Container maxWidth="md" sx={{ py: 4 }}>
+    <>
+    <Logout />
+    <Container maxWidth="md" sx={{ py: 4 ,mt:"35px" }}>
+   
       <Card sx={{ mb: 4, p: 3 }}>
         <Typography variant="h4" sx={{ mb: 2 }}>{ticket.title}</Typography>
         <Typography variant="body1" sx={{ mb: 2 }}>{ticket.description}</Typography>
@@ -206,6 +213,7 @@ function Ticket() {
       <TicketMessages messages={ticket.messages} />
       <MessageInput onSendMessage={handleSendMessage} />
     </Container>
+    </>
   );
 }
 

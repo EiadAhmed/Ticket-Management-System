@@ -24,6 +24,7 @@ const AuthenticationContextProvider = ({ children }) => {
       })
       .catch(() => {
         navigator("/login");
+        cookies.remove("Token", { path: "/" });
         return false;
       });
     return valid;

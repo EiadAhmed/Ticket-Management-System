@@ -19,6 +19,7 @@ import {
   import { DomainContext } from "../DomainContext";
   import { useTheme, useMediaQuery } from "@mui/material";
   import { AuthenticationContext } from "../AuthenticationContext";
+  import Logout from './logout';
 //   import { ReactMultiEmail } from "react-multi-email";
 //   import "react-multi-email/dist/style.css";
   // import edit from "../assets/edit.png";
@@ -66,7 +67,7 @@ import {
           }
         })();   
       }
-    }, [checkExpiry,count]);
+    }, [checkExpiry,count,Token]);
   
     if (loading) return <Loader />;
 
@@ -105,11 +106,19 @@ import {
     };
 
     return (
-        <Container sx={{ display: "flex", justifyContent: "space-between",height: "100% !important",      flexDirection: {xs: "column", sm: "row"} , alignItems: "center", width: "100%" }}>
-     <Box sx={{ pt: 4, width:{sm:"60%"}  , minWidth: "300px"}}>
-        <Typography variant="h5" sx={{ mb: 4, textAlign: "center", fontWeight: "500" }}>Your Tickets</Typography>
+        <>
+        
+        <Logout />
+
+        <Container sx={{ display: "flex", justifyContent: "space-between",height: "100% !important", 
+             flexDirection: {xs: "column", sm: "row"} , alignItems: "center", width: "100%" }}>
+   
+     <Box sx={{ pt: 15, width:{sm:"60%"}  , minWidth: "300px"}}>
+        <Typography variant="h5" sx={{  textAlign: "center", fontWeight: "500" }}>Your Tickets</Typography>
         <Box sx={{ 
           maxHeight: "85vh !important",  
+          minHeight: "85vh !important",  
+
           overflow: "auto",
           "&::-webkit-scrollbar": {
             width: "8px",
@@ -125,7 +134,10 @@ import {
           msOverflowStyle: "none",  // IE and Edge
           scrollbarWidth: "thin",    // Firefox
         }}>  
-        {tickets.map((ticket) => (
+    {tickets.length === 0 ? (
+        <Typography variant="h5" sx={{ mb: 4, textAlign: "center", fontWeight: "500" ,mt:"100px"  }}>No tickets found</Typography>
+    ) : (
+        tickets.map((ticket) => (
             <Card key={ticket.id} sx={{ m:5, pt: 2, pb: 2, pl: 2, pr: 2, borderRadius: 2,
              boxShadow: 3 }} onClick={() => navigator(`/tickets/${ticket.id}`)}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', p: 2, height: '100%' }}>
@@ -154,14 +166,18 @@ import {
                     </Box>
                 </Box>
             </Card>
-        ))}
+      ))
+    )}
 </Box>
+
         </Box>
-      <Box width={{xs:"100%", sm:"40% !important"}} height="100% !important">
-        <Card sx={{ p: 4, mt: 4 }}>
-          <Typography variant="h5" sx={{ mb: 4, textAlign: "center", fontWeight: "500" }}>
+
+      <Box width={{xs:"100%", sm:"40% !important", pt:0}} height="100% !important">
+      <Typography variant="h5" sx={{ mb: 4,paddingBottom:5, textAlign: "center", fontWeight: "500" }}>
             Create New Ticket
           </Typography>
+        <Card sx={{ p: 4, mt: 4,pt:0 }}>
+
 
           <FormControl fullWidth sx={{ mb: 3 }}>
             <TextField
@@ -250,6 +266,7 @@ import {
         </Card>
       </Box>
       </Container>
+      </>
     );
   }
   export default TicketsPage;

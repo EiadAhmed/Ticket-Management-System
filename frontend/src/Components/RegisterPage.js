@@ -75,7 +75,7 @@ export default function SignUp() {
   const [conpass_error, setconpass_error] = useState("");
   const [email_error, setemail_error] = useState("");
   const [email, setEmail] = useState();
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [confirm_password, setConfirmPassword] = useState();
  
@@ -145,7 +145,8 @@ export default function SignUp() {
         setpass_error("");
       }
       if (error.response.data.username) {
-        setusername_error(error.response.data.username[0]);
+        console.log(error.response.data.username);
+        setusername_error(error.response.data.username);
       } else {
         setusername_error("");
       }
@@ -278,8 +279,8 @@ export default function SignUp() {
                   Welcome to Supportly
                 </Typography>
                 <CustomTextField
-                  error={email_error ? true : false}
-                  helperText={email_error ? email_error : ""}
+                  error={username_error ? true : false}
+                  helperText={username_error ? username_error : ""}
                   margin="normal"
                   label="User Name"
                   required
@@ -367,7 +368,7 @@ export default function SignUp() {
                       alignItems: "center",
                     }}
                   >
-                    {is_loading ? <LoadingSpinner /> : <p  style={{marginTop:"-5px"}}>Continue</p>}
+                    {is_loading ? <p  style={{marginTop:"-5px"}}>Continue</p> : <p  style={{marginTop:"-5px"}}>Continue</p>}
                   </Box>
                 </Button>
                 <Typography fontSize="1rem" color="#FFFFFF">
